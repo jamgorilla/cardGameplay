@@ -1,14 +1,17 @@
-import React from 'react';
-import { Component, Image, Stylesheet, PanResponder, Dimensions, StyleSheet, Text, Animated, View } from 'react-native';
-import Card from './Card.js';
+import React, {Component} from 'react';
+import { Image, Stylesheet, PanResponder, Dimensions, StyleSheet, Text, Animated, View } from 'react-native';
 
-export default class App extends React.Component {
+
+export default class Card extends Component {
   constructor(props){
     super(props);
-
     this.state = {
         pan     : new Animated.ValueXY()   //Step 1
     };
+    
+  
+   //let _this = this;
+   
 
     this.panResponder = PanResponder.create({    
         onStartShouldSetPanResponder : () => true,
@@ -50,8 +53,6 @@ export default class App extends React.Component {
 
 renderDraggable(){
     return (
-        <View>
-            <Card />
         <View style={styles.draggableContainer}>
             <Animated.View 
                 {...this.panResponder.panHandlers}                       
@@ -61,11 +62,11 @@ renderDraggable(){
                   source={{uri: 'https://allaboutcards.files.wordpress.com/2009/11/200px-playing_card_spade_a_svg_small1.png'}}
                 />
             </Animated.View>
-        </View>
-        <Card />
+            
         </View>
     );
 }
+
    render(){
         return (
             <View style={styles.mainContainer}>
@@ -77,16 +78,9 @@ renderDraggable(){
             </View>
         );
     }
+
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
 
 let CIRCLE_RADIUS = 36;
 let Window = Dimensions.get('window');
@@ -107,11 +101,11 @@ let styles = StyleSheet.create({
     },
     draggableContainer: {
         position    : 'absolute',
-        top         : Window.height - CIRCLE_RADIUS*3,
-        left        : Window.width/2 - CIRCLE_RADIUS,
+        top         : 20,
+        left        : 20,
     },
     circle      : {
-        width               : CIRCLE_RADIUS*2,
-        height              : 90
+        width               : 90,
+        height              : 100
     }
 });
