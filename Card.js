@@ -17,7 +17,11 @@ export default class Card extends Component {
             dy : this.state.pan.y
         }]),
         onPanResponderRelease        : (e, gesture) => {
+        
 
+           console.log('gesture X', gesture.moveX)
+           console.log('gesture Y', gesture.moveY)
+            console.log('this state pan', this.state.pan)
           let Xcoord = JSON.stringify(this.state.pan.x)
           let Xcord = JSON.parse(Xcoord)
 
@@ -27,14 +31,16 @@ export default class Card extends Component {
           console.log('X', Xcord)
           console.log('Y', Ycord)
 
-          if (Xcord < -100 && Ycord < -130) {
+          if (gesture.moveX < 50 && gesture.moveY < 200) {
             console.log('table')
               Animated.spring(            //Step 1
                 this.state.pan,         //Step 2
                 {toValue:{x:-100,y:-300}}     //Step 3
-          
-
             ).start();
+
+              // replace dropped card with deck card remove from hand
+              this.props.dropCardToDeck(this.props.hand);
+
           } else {
             console.log('not table')
               Animated.spring(            //Step 1

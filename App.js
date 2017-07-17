@@ -41,16 +41,36 @@ export default class App extends React.Component {
         left        : 245,
     },{
         position    : 'absolute', 
-        top         : 70,
+        top         : 50,
         left        : 0,
     }],
 
-    hand : [1, 30, 3, 43, 5, 6, 47, 52] ,
+    hand : [1, 30, 3, 43, 5, 6, 47] ,
     deck : [50]
     };
 
-    
+    this.dropCardToDeck = this.dropCardToDeck.bind(this);
 }
+
+dropCardToDeck(droppedCard){
+
+  let _this = this;
+  let newArray = [];
+  let index = _this.state.hand.indexOf(droppedCard)
+  let newHand = _this.state.hand.splice(index, 1)
+
+  console.log('this state hand', _this.state.hand)
+  console.log('newhand', newHand)
+  
+  _this.setState({
+    hand : _this.state.hand,
+    deck : [droppedCard]
+  })
+
+
+
+}
+
 
 renderDraggable(){
     let _this = this;
@@ -61,13 +81,13 @@ renderDraggable(){
 
     return (
         <View>
-            <Card position={_this.state.position[0]} hand={_this.state.hand[0]}/>
-            <Card position={_this.state.position[1]} hand={_this.state.hand[1]}/>
-            <Card position={_this.state.position[2]} hand={_this.state.hand[2]}/>
-            <Card position={_this.state.position[3]} hand={_this.state.hand[3]}/>
-            <Card position={_this.state.position[4]} hand={_this.state.hand[4]}/>
-            <Card position={_this.state.position[5]} hand={_this.state.hand[5]}/>
-            <Card position={_this.state.position[6]} hand={_this.state.hand[6]}/>
+            <Card dropCardToDeck={ _this.dropCardToDeck } position={_this.state.position[0]} hand={_this.state.hand[0]}/>
+            <Card dropCardToDeck={ _this.dropCardToDeck } position={_this.state.position[1]} hand={_this.state.hand[1]}/>
+            <Card dropCardToDeck={ _this.dropCardToDeck } position={_this.state.position[2]} hand={_this.state.hand[2]}/>
+            <Card dropCardToDeck={ _this.dropCardToDeck } position={_this.state.position[3]} hand={_this.state.hand[3]}/>
+            <Card dropCardToDeck={ _this.dropCardToDeck } position={_this.state.position[4]} hand={_this.state.hand[4]}/>
+            <Card dropCardToDeck={ _this.dropCardToDeck } position={_this.state.position[5]} hand={_this.state.hand[5]}/>
+            <Card dropCardToDeck={ _this.dropCardToDeck } deckPos={_this.state.position[8]} position={_this.state.position[6]} hand={_this.state.hand[6]}/>
             {eighth}
             <Card position={_this.state.position[8]} hand={_this.state.deck[0]}/>
         </View>
