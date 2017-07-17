@@ -1,17 +1,14 @@
 import React, {Component} from 'react';
 import { Image, Stylesheet, PanResponder, Dimensions, StyleSheet, Text, Animated, View } from 'react-native';
-
+//import Images from './assets/playingcards/images.js';
 
 export default class Card extends Component {
   constructor(props){
-    super(props);
+    super(props); 
     this.state = {
         pan     : new Animated.ValueXY()   //Step 1
     };
-    
-  
-   //let _this = this;
-   
+     
 
     this.panResponder = PanResponder.create({    
         onStartShouldSetPanResponder : () => true,
@@ -52,15 +49,30 @@ export default class Card extends Component {
 }
 
 renderDraggable(){
+  let _this = this;
+  let card;
+  if (_this.props.hand === 1) {
+  card = <Image style={styles.circle}
+                resizeMode='contain' 
+                source={require('./5H.png')} />
+  } else if (_this.props.hand === 2) {
+  card = <Image style={styles.circle}
+                resizeMode='contain'  
+                source={require('./KC.png')} />
+  } else if (_this.props.hand === 3) {
+  card = <Image style={styles.circle}
+                resizeMode='contain' 
+                source={require('./KC.png')} />
+  }
+
     return (
-        <View style={styles.draggableContainer}>
+        <View style={_this.props.position}>
             <Animated.View 
                 {...this.panResponder.panHandlers}                       
-                style={[this.state.pan.getLayout(), styles.circle]}>     
-                <Image
-                  style={styles.circle}
-                  source={{uri: 'https://allaboutcards.files.wordpress.com/2009/11/200px-playing_card_spade_a_svg_small1.png'}}
-                />
+                style={[this.state.pan.getLayout(), styles.circle]}>  
+                
+                <View>{card}</View>
+                
             </Animated.View>
             
         </View>
@@ -70,10 +82,7 @@ renderDraggable(){
    render(){
         return (
             <View style={styles.mainContainer}>
-                <View style={styles.dropZone}>
-                    <Text style={styles.text}>Drop me here!</Text>
-                </View>
-
+                
                 {this.renderDraggable()}
             </View>
         );
