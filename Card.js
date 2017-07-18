@@ -32,14 +32,17 @@ export default class Card extends Component {
           console.log('Y', Ycord)
 
           if (gesture.moveX < 50 && gesture.moveY < 200) {
-            console.log('table')
-              Animated.spring(            //Step 1
-                this.state.pan,         //Step 2
-                {toValue:{x:-100,y:-300}}     //Step 3
-            ).start();
-
               // replace dropped card with deck card remove from hand
-              this.props.dropCardToDeck(this.props.hand);
+              let _this = this;
+              this.props.dropCardToDeck(this.props.hand, function(){
+
+                  Animated.spring(            //Step 1
+                    _this.state.pan,         //Step 2
+                    {toValue:{x:0,y:0}}     //Step 3
+                ).start();
+
+              });
+
 
           } else {
             console.log('not table')

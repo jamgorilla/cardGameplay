@@ -1,6 +1,8 @@
 import React from 'react';
 import { Component, Image, Stylesheet, PanResponder, Dimensions, StyleSheet, Text, Animated, View } from 'react-native';
 import Card from './Card.js';
+import Deck from './Deck.js';
+import Bottom from './Bottom.js';
 
 export default class App extends React.Component {
   constructor(props){
@@ -50,25 +52,49 @@ export default class App extends React.Component {
     };
 
     this.dropCardToDeck = this.dropCardToDeck.bind(this);
+    this.pickUpDeckCard = this.pickUpDeckCard.bind(this);
 }
 
-dropCardToDeck(droppedCard){
+dropCardToDeck(droppedCard, callback){
 
   let _this = this;
   let newArray = [];
+
+  console.log('this state hand before', _this.state.hand)
   let index = _this.state.hand.indexOf(droppedCard)
   let newHand = _this.state.hand.splice(index, 1)
 
-  console.log('this state hand', _this.state.hand)
-  console.log('newhand', newHand)
-  
+  console.log('this state hand before', _this.state.hand)
+ console.log('this state deck before', _this.state.deck)
+
   _this.setState({
     hand : _this.state.hand,
     deck : [droppedCard]
   })
+console.log('this state hand after', _this.state.hand)
+console.log('this state deck after', _this.state.deck)
+ callback();
+}
 
+pickUpDeckCard(deckCard, handPositionVar){
+  
+  let _this = this;
+  console.log('deckCard', deckCard)
+  console.log('handPositionVar', handPositionVar)
 
+  console.log('this state hand before', _this.state.hand)
 
+  _this.state.hand.splice(handPositionVar, 0, deckCard)  
+
+  console.log('this state hand after', _this.state.hand)
+
+ console.log('this deck before', _this.state.deck)
+  _this.setState({
+    hand: _this.state.hand,
+    deck : []
+  })
+  
+ console.log('this deck after', _this.state.deck)
 }
 
 
@@ -87,9 +113,10 @@ renderDraggable(){
             <Card dropCardToDeck={ _this.dropCardToDeck } position={_this.state.position[3]} hand={_this.state.hand[3]}/>
             <Card dropCardToDeck={ _this.dropCardToDeck } position={_this.state.position[4]} hand={_this.state.hand[4]}/>
             <Card dropCardToDeck={ _this.dropCardToDeck } position={_this.state.position[5]} hand={_this.state.hand[5]}/>
-            <Card dropCardToDeck={ _this.dropCardToDeck } deckPos={_this.state.position[8]} position={_this.state.position[6]} hand={_this.state.hand[6]}/>
+            <Card dropCardToDeck={ _this.dropCardToDeck } position={_this.state.position[6]} hand={_this.state.hand[6]}/>
             {eighth}
-            <Card position={_this.state.position[8]} hand={_this.state.deck[0]}/>
+           <Bottom position={_this.state.position[8]}/>
+            <Deck pickUpDeckCard={ _this.pickUpDeckCard } position={_this.state.position[8]} hand={_this.state.deck[0]}/>
         </View>
     );
 }
