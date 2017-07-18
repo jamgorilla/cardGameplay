@@ -31,6 +31,7 @@ export default class Card extends Component {
           console.log('X', Xcord)
           console.log('Y', Ycord)
 
+
           if (gesture.moveX < 50 && gesture.moveY < 200) {
               // replace dropped card with deck card remove from hand
               let _this = this;
@@ -44,7 +45,37 @@ export default class Card extends Component {
               });
 
 
-          } else {
+          } else if (gesture.moveY > 400) {
+          let handPositionVar = 0
+
+           if (gesture.moveX < 35) {
+              handPositionVar = 0
+            } else if (gesture.moveX < 70) {
+              handPositionVar = 1
+            } else if (gesture.moveX < 105) {
+              handPositionVar = 2
+            } else if (gesture.moveX < 140) {
+              handPositionVar = 3
+            } else if (gesture.moveX < 175) {
+              handPositionVar = 4
+            } else if (gesture.moveX < 210) {
+              handPositionVar = 5
+            } else if (gesture.moveX < 245) {
+              handPositionVar = 6
+            } else if (gesture.moveX > 245) {
+              handPositionVar = 7
+            }
+
+            this.props.reOrderHand(this.props.hand, handPositionVar)
+
+            Animated.timing(            //Step 1
+                this.state.pan,         //Step 2
+                {toValue:{x:0,y:0},
+                duration: 1}     //Step 3
+            ).start();
+          } 
+
+          else {
             console.log('not table')
               Animated.spring(            //Step 1
                 this.state.pan,         //Step 2
