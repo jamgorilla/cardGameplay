@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Image, Stylesheet, PanResponder, Dimensions, StyleSheet, Text, Animated, View } from 'react-native';
 //import Images from './assets/playingcards/images.js';
 
-export default class Deck extends Component {
+export default class Discard extends Component {
   constructor(props){
     super(props); 
     this.state = {
@@ -53,8 +53,8 @@ export default class Deck extends Component {
             } else if (gesture.moveX > 245) {
               handPositionVar = 7
             }
-              // replace dropped card with deck card remove from hand
-            this.props.pickUpDeckCard(this.props.hand, handPositionVar);
+              // replace dropped card with discard card remove from hand
+            this.props.pickUpDiscard(this.props.hand, handPositionVar);
 
           } else {
   
