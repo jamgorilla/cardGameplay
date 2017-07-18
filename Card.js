@@ -295,7 +295,7 @@ renderDraggable(){
 }
 
 
-let CIRCLE_RADIUS = 36;
+
 let Window = Dimensions.get('window');
 let styles = StyleSheet.create({
     mainContainer: {

@@ -47,7 +47,7 @@ export default class App extends React.Component {
         left        : 0,
     }],
 
-    hand : [1, 30, 3, 43, 5, 6, 47] ,
+    hand : [1, 30, 3, 43, 5, 6, 47],
     deck : [50]
     };
 
@@ -60,41 +60,25 @@ dropCardToDeck(droppedCard, callback){
   let _this = this;
   let newArray = [];
 
-  console.log('this state hand before', _this.state.hand)
   let index = _this.state.hand.indexOf(droppedCard)
   let newHand = _this.state.hand.splice(index, 1)
-
-  console.log('this state hand before', _this.state.hand)
- console.log('this state deck before', _this.state.deck)
 
   _this.setState({
     hand : _this.state.hand,
     deck : [droppedCard]
   })
-console.log('this state hand after', _this.state.hand)
-console.log('this state deck after', _this.state.deck)
+
  callback();
 }
 
 pickUpDeckCard(deckCard, handPositionVar){
-  
   let _this = this;
-  console.log('deckCard', deckCard)
-  console.log('handPositionVar', handPositionVar)
-
-  console.log('this state hand before', _this.state.hand)
-
   _this.state.hand.splice(handPositionVar, 0, deckCard)  
 
-  console.log('this state hand after', _this.state.hand)
-
- console.log('this deck before', _this.state.deck)
   _this.setState({
     hand: _this.state.hand,
     deck : []
   })
-  
- console.log('this deck after', _this.state.deck)
 }
 
 
@@ -126,24 +110,14 @@ renderDraggable(){
                 <View style={styles.dropZone}>
                     <Text style={styles.text}>Header</Text>
                 </View>
-
                 {this.renderDraggable()}
             </View>
         );
     }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
 
-let CIRCLE_RADIUS = 36;
-let Window = Dimensions.get('window');
+
 let styles = StyleSheet.create({
     mainContainer: {
         flex    : 1
