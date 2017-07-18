@@ -53,9 +53,8 @@ export default class App extends React.Component {
 
     this.state = {
         position  : this.originPos,
-
-    hand : [1, 30, 3, 43, 5, 6, 47],
-    discard : [50]
+        hand : [1, 30, 3, 43, 5, 6, 47],
+        discard : [50, 8, 9, 47]
     };
 
     this.dropCardToDiscard = this.dropCardToDiscard.bind(this);
@@ -64,15 +63,18 @@ export default class App extends React.Component {
 }
 
 dropCardToDiscard(discardCard, callback){
-
   let _this = this;
+
   let newArray = [];
   let index = _this.state.hand.indexOf(discardCard)
   let newHand = _this.state.hand.splice(index, 1)
 
+  _this.state.discard.push(discardCard)
+
+
   _this.setState({
     hand : _this.state.hand,
-    discard : [discardCard]
+    discard : _this.state.discard
   })
 
  callback();
@@ -81,17 +83,21 @@ dropCardToDiscard(discardCard, callback){
 pickUpDiscard(discardCard, handPositionVar){
 
   let _this = this;
+
   _this.state.hand.splice(handPositionVar, 0, discardCard)  
 
+  _this.state.discard.pop()
+  
   _this.setState({
     hand: _this.state.hand,
-    discard : []
+    discard : _this.state.discard
   })
 }
 
 reOrderHand(pickedCard, handPositionVar){
 
   let _this = this;
+
   let pindex = _this.state.hand.indexOf(pickedCard);
   _this.state.hand.splice(pindex, 1);
   _this.state.hand.splice(handPositionVar, 0, pickedCard); 
@@ -120,7 +126,7 @@ renderDraggable(){
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[6]} hand={_this.state.hand[6]}/>
             {eighth}
            <Bottom position={_this.state.position[8]}/>
-            <Discard pickUpDiscard={ _this.pickUpDiscard } position={_this.state.position[8]} hand={_this.state.discard[0]}/>
+            <Discard pickUpDiscard={ _this.pickUpDiscard } position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-1]}/>
 
            <Pack position={_this.state.position[9]}/>
         </View>

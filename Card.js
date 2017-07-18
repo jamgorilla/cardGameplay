@@ -36,6 +36,8 @@ export default class Card extends Component {
           if (gesture.moveX > 200 && gesture.moveY < 200) {
               // replace dropped card with discard card remove from hand
               let _this = this;
+              console.log('triggering dicard', this.props.hand)
+              
               this.props.dropCardToDiscard(this.props.hand, function(){
 
                   Animated.spring(          
