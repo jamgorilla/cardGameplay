@@ -54,7 +54,7 @@ export default class Discard extends Component {
               handPositionVar = 7
             }
               // replace dropped card with discard card remove from hand
-            this.props.pickUpDiscard(this.props.hand, handPositionVar);
+            this.props.pickUpDiscard(this.props.hand, handPositionVar, true);
             Animated.timing(            //Step 1
                 this.state.pan,         //Step 2
                 {toValue:{x:0,y:0},

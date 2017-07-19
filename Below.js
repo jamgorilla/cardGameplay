@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Image, Stylesheet, PanResponder, Dimensions, StyleSheet, Text, Animated, View } from 'react-native';
 //import Images from './assets/playingcards/images.js';
 
-export default class Below extends Component {
+export default class Bottom extends Component {
   constructor(props){
     super(props); 
     };
@@ -14,7 +14,7 @@ renderDraggable(){
     <View style={_this.props.position}>
       <Image style={styles.circle}
         resizeMode='contain' 
-        source={_this.props.hand} />
+        source={require('./card-images/Back.png')} />
     </View>
   );
 }

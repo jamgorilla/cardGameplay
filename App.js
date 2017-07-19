@@ -54,13 +54,15 @@ export default class App extends React.Component {
 
     this.state = {
         position  : this.originPos,
-        hand : [1, 30, 3, 43, 5, 6, 47],
-        discard : [50, 8, 9, 50]
+        draw : [1, 30, 7, 32],
+        hand : [1, 34, 3, 43, 5, 6, 47],
+        discard : [8, 9, 21]
     };
 
     this.dropCardToDiscard = this.dropCardToDiscard.bind(this);
     this.pickUpDiscard = this.pickUpDiscard.bind(this);
     this.reOrderHand = this.reOrderHand.bind(this);
+    //this.pickUpDrawcard = this.pickUpDrawcard(this);
 }
 
 dropCardToDiscard(discardCard, callback){
@@ -81,19 +83,33 @@ dropCardToDiscard(discardCard, callback){
  callback();
 }
 
-pickUpDiscard(discardCard, handPositionVar){
+pickUpDiscard(card, handPositionVar, disOrDraw){
 
   let _this = this;
 
-  _this.state.hand.splice(handPositionVar, 0, discardCard)  
+  _this.state.hand.splice(handPositionVar, 0, card)  
 
-  _this.state.discard.pop()
-  
-  _this.setState({
-    hand: _this.state.hand,
-    discard : _this.state.discard
-  })
+  if (disOrDraw) {
+
+    _this.state.discard.pop()
+    
+    _this.setState({
+      hand: _this.state.hand,
+      discard : _this.state.discard
+    })
+
+  } else {
+  //draw
+    _this.state.draw.pop()
+    
+    _this.setState({
+      hand: _this.state.hand,
+      draw : _this.state.draw
+    })
+
+  }
 }
+
 
 reOrderHand(pickedCard, handPositionVar){
 
@@ -126,11 +142,12 @@ renderDraggable(){
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[5]} hand={_this.state.hand[5]}/>
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[6]} hand={_this.state.hand[6]}/>
             {eighth}
+
            <Below position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-2]}/>
             <Discard pickUpDiscard={ _this.pickUpDiscard } position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-1]}/>
 
             <Bottom position={_this.state.position[9]} />
-           <Pack position={_this.state.position[9]} />
+           <Pack position={_this.state.position[9]} hand={_this.state.draw[_this.state.draw.length-1]} pickUpDiscard={ _this.pickUpDiscard }/>
         </View>
     );
 }

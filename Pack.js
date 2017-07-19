@@ -53,9 +53,15 @@ export default class Pack extends Component {
             } else if (gesture.moveX > 245) {
               handPositionVar = 7
             }
+            
+            console.log('handPositionVar', handPositionVar)
               // replace dropped card with discard card remove from hand
-            this.props.pickUpDiscard(this.props.hand, handPositionVar);
-
+            this.props.pickUpDiscard(this.props.hand, handPositionVar, false);
+             Animated.timing(            //Step 1
+                this.state.pan,         //Step 2
+                {toValue:{x:0,y:0},
+                duration: 1}     //Step 3
+            ).start();
           } else {
   
               Animated.spring(            //Step 1
