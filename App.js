@@ -2,8 +2,9 @@ import React from 'react';
 import { Component, Image, Stylesheet, PanResponder, Dimensions, StyleSheet, Text, Animated, View } from 'react-native';
 import Card from './Card.js';
 import Discard from './Discard.js';
-import Bottom from './Bottom.js';
+import Below from './Below.js';
 import Pack from './Pack.js';
+import Bottom from './Bottom.js';
 
 export default class App extends React.Component {
   constructor(props){
@@ -54,7 +55,7 @@ export default class App extends React.Component {
     this.state = {
         position  : this.originPos,
         hand : [1, 30, 3, 43, 5, 6, 47],
-        discard : [50, 8, 9, 47]
+        discard : [50, 8, 9, 50]
     };
 
     this.dropCardToDiscard = this.dropCardToDiscard.bind(this);
@@ -125,10 +126,11 @@ renderDraggable(){
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[5]} hand={_this.state.hand[5]}/>
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[6]} hand={_this.state.hand[6]}/>
             {eighth}
-           <Bottom position={_this.state.position[8]}/>
+           <Below position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-2]}/>
             <Discard pickUpDiscard={ _this.pickUpDiscard } position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-1]}/>
 
-           <Pack position={_this.state.position[9]}/>
+            <Bottom position={_this.state.position[9]} />
+           <Pack position={_this.state.position[9]} />
         </View>
     );
 }
